@@ -6,6 +6,16 @@
  *   post:
  *     summary: Create an user
  *     description: Create an user based on the request body.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The user name
  *     responses:
  *       200:
  *         description: Created successful
@@ -26,6 +36,12 @@ exports.create = async function(req, res) {
  *   get:
  *     summary: List the favorites articles
  *     description: List the favorites articles based on the user id from the header
+ *     parameters:
+*       - in: header
+ *         name: user-id
+ *         schema:
+ *           type: string
+ *         description: The user id to get its favorite list
  *     responses:
  *       200:
  *         description: Request successful

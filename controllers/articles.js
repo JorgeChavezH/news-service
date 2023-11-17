@@ -8,6 +8,22 @@ const { util } = require("chai");
  *   post:
  *     summary: Create an article
  *     description: Create an article based on the request body.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               author:
+ *                 type: string
+ *                 description: The news author's name
+ *               content:
+ *                 type: string
+ *                 description: The news content
+ *               url:
+ *                 type: string
+ *                 description: The news url to read the full content
  *     responses:
  *       200:
  *         description: Created successful
@@ -36,10 +52,17 @@ exports.create = async function (req, res) {
  *     description: Retrieve a paginated article list based on the page and size from query params.
  *     parameters:
  *       - in: query
- *         name: parametro1
+ *         name: page
  *         schema:
- *           type: string
- *         description: Descripción del primer parámetro.
+ *           type: int
+ *         default: 1
+ *         description: The page number
+ *       - in: query
+ *         name: size
+ *         schema:
+ *           type: int
+ *         default: 20
+ *         description: The number of items a page should have
  *     responses:
  *       200:
  *         description: Successful request
@@ -67,6 +90,12 @@ exports.index = async function (req, res) {
  *   get:
  *     summary: Retrieve a specific article
  *     description: Retrieve a specific article based on the id from query params.
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: The article id you are looking for
  *     responses:
  *       200:
  *         description: Successful request
@@ -94,6 +123,28 @@ exports.show = async function (req, res) {
  *   put:
  *     summary: Update a specific article
  *     description: Update a specific article based on the id from query params and the request body.
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: The article id you want to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               author:
+ *                 type: string
+ *                 description: The news author's name
+ *               content:
+ *                 type: string
+ *                 description: The news content
+ *               url:
+ *                 type: string
+ *                 description: The news url to read the full content
  *     responses:
  *       200:
  *         description: Successful request
@@ -121,6 +172,12 @@ exports.update = async function (req, res) {
  *   delete:
  *     summary: Delete an article
  *     description: Delete an article based in the id sent in the query param.
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: The article id you want to delete
  *     responses:
  *       200:
  *         description: Deleted successful
@@ -148,6 +205,17 @@ exports.delete = async function (req, res) {
  *   post:
  *     summary: Mark an article as favorite
  *     description: Mark an article as favorite to the user comming in the user header.
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: The article id you want to add to favorites
+ *       - in: header
+ *         name: user-id
+ *         schema:
+ *           type: string
+ *         description: The user id that is adding the article to favorites
  *     responses:
  *       200:
  *         description: Request successful
@@ -176,6 +244,17 @@ exports.favorite = async function (req, res) {
  *   post:
  *     summary: Remove the mark of favorite from an article
  *     description: Remove the mark of favorite from an article to the user comming in the user header.
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: The article id you want to remove from favorites
+ *       - in: header
+ *         name: user-id
+ *         schema:
+ *           type: string
+ *         description: The user id that is removing the article from favorites
  *     responses:
  *       200:
  *         description: Request successful
