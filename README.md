@@ -10,7 +10,7 @@ A service to manage the news database and provide a news feed to the user
 ## Installation
 
 # Clone the repository
-`git clone https://github.com/your_username/your_project.git`
+`git clone git@github.com:JorgeChavezH/news-service.git`
 
 # Install dependencies
 `npm install`
