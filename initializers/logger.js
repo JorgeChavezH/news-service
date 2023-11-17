@@ -12,7 +12,7 @@ global.logger = winston.createLogger({
   ],
 });
 
-if (process.env.NODE_ENV == 'dev') {
+if ((process.env.NODE_ENV || 'dev') == 'dev') {
     logger.add(new winston.transports.Console({
       format: winston.format.simple(),
     }));

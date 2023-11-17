@@ -30,6 +30,7 @@ exports.update = async function(id, article) {
 }
 
 exports.delete = async function(id) {
+    // TODO: look for the article in users favorite list to remove from there too
     return await dao.articles.delete(id)
 }
 

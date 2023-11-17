@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "7b11bd31-82d2-4f32-9f1f-d916fbe6777e",
+		"name": "news",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30921553"
+	},
+	"item": [
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/health",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[1] articles load",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/articles/load",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles",
+						"load"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[2] users create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"LAST_USER_CREATED\", jsonData.data[\"_id\"]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jorge Antonio\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/users",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users favorites",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Id",
+						"value": "{{LAST_USER_CREATED}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/users/favorites",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"users",
+						"favorites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "article List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/articles?page=1&size=5",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "articles create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://url.to.new.com\",\r\n    \"author\": \"Jorge Antonio\",\r\n    \"content\": \"Chavez Hernandez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/articles",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add to favorite",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Id",
+						"value": "{{LAST_USER_CREATED}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://media.istockphoto.com/id/517998264/es/vector/hombre-icono-de-usuario.jpg?s=612x612&w=0&k=20&c=uoarmEgn1Vxc3vd4KGsiAZZPBtaidN-StEZa6USgbgs=\",\r\n    \"author\": \"Jorge Antonio\",\r\n    \"content\": \"Chavez Hernandez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/articles/65579313c5373d0c629a0973/favorite",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles",
+						"65579313c5373d0c629a0973",
+						"favorite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove from favorite",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Id",
+						"value": "{{LAST_USER_CREATED}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://media.istockphoto.com/id/517998264/es/vector/hombre-icono-de-usuario.jpg?s=612x612&w=0&k=20&c=uoarmEgn1Vxc3vd4KGsiAZZPBtaidN-StEZa6USgbgs=\",\r\n    \"author\": \"Jorge Antonio\",\r\n    \"content\": \"Chavez Hernandez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/articles/65579313c5373d0c629a0973/unfavorite",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles",
+						"65579313c5373d0c629a0973",
+						"unfavorite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "article update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://updated.url.news.com\",\r\n    \"author\": \"Plablo picasso\",\r\n    \"content\": \"new content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/articles/65579313c5373d0c629a0973",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles",
+						"65579313c5373d0c629a0973"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "article by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/articles/65579313c5373d0c629a0973",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles",
+						"65579313c5373d0c629a0973"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "article delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/articles/65579313c5373d0c629a0973",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"articles",
+						"65579313c5373d0c629a0973"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

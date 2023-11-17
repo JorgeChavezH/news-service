@@ -30,6 +30,8 @@ Run API with docker compose
 You will be able to see the documentation on 
 http://localhost:3000/api-docs/
 
+You can find a postman collection and envirorment in the `/postman-collections` folder.
+
 ## For development propouses you can run redis and MongoDB with docker:
 
 MongoDB

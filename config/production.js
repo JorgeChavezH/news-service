@@ -3,7 +3,7 @@ module.exports = {
       port: process.env.PORT || 3000,
     },
     cache: {
-      lifeTimeInSeconds: 60,
+      lifeTimeInSeconds: 2,
       host: 'redis',
       port: 6379
     },
